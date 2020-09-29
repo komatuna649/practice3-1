@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript</title>
+    <meta name="description" content="site">
+    <style>
+        .collect {
+            display: flex;
+            list-style: none;
+        }
+
+        .list {
+            display: flex;
+            list-style: none;
+        }
+
+        .list li {
+            width: 100px;
+        }
+
+        .border-color:hover {
+            outline: solid 2px skyblue;
+        }
+
+        .add-list {
+            list-style: none;
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ToDoリスト</h1>
+    <ul class="collect">
+        <li>
+            <input id="all" type="radio" name="radio" value="1" checked>
+            <label for="all">全て</label>
+        </li>
+        <li>
+            <input id="work" type="radio" name="radio" value="2">
+            <label for="work">作業中</label>
+        </li>
+        <li>
+            <input id="complete" type="radio" name="radio" value="3">
+            <label for="complete">完了</label>
+        </li>
+    </ul>
+    <ul class='list'>
+        <li>ID</li>
+        <li>コメント</li>
+        <li>状態</li>
+    </ul>
+    <div class='add-list'>
+        <div id="num"></div>
+        <div id="comment"></div>
+        <div id="todo1"></div>
+        <div id="todo2"></div>
+    </div>
+    <h2>新規タスクの追加</h2>
+    <div>
+        <input type="text" class="border-color " id="js-input" />
+        <button id="btn">追加</button>
+    </div>
+    <script>
+        const button = document.getElementById("btn");
+        button.addEventListener("click", event => {
+            const addList = document.getElementsByClassName('add-list');
+            const jsInput = document.getElementById('js-input');
+            const addComment = document.getElementById('comment');
+            const addText = document.createElement('p');
+            const addButton = document.createElement('button');
+            addText.textContent = jsInput.value;
+            addComment.appendChild(addText);
+            const divComment = document.createElement("div");
+            addComment.appendChild(divComment);
+
+            const btnWork = document.createElement("button");
+            btnWork.textContent = "作業中";
+            const btnDelete = document.createElement("button");
+            btnDelete.textContent = "削除";
+            const divWork = document.createElement("div");
+            const divDelete = document.createElement("div");
+            divWork.appendChild(btnWork);
+            divDelete.appendChild(btnDelete);
+            const todo1 = document.getElementById("todo1");
+            todo1.appendChild(divWork);
+            const todo2 = document.getElementById("todo2");
+            todo2.appendChild(divDelete);
+        });
+    </script>
+</body>
+
+</html>
