@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +29,10 @@
             list-style: none;
             display: flex;
         }
+
+        .add-list tr {
+            display: flex;
+        }
     </style>
 </head>
 
@@ -47,47 +52,54 @@
             <label for="complete">完了</label>
         </li>
     </ul>
-    <ul class='list'>
-        <li>ID</li>
-        <li>コメント</li>
-        <li>状態</li>
-    </ul>
-    <div class='add-list'>
-        <div id="num"></div>
-        <div id="comment"></div>
-        <div id="todo1"></div>
-        <div id="todo2"></div>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                　　　<th>ID</th>
+                　　　<th>コメント</th>
+                　　　<th>状態</th>
+            </tr>
+        </thead>
+        <tbody id="add-list">
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
     <h2>新規タスクの追加</h2>
     <div>
         <input type="text" class="border-color " id="js-input" />
         <button id="btn">追加</button>
     </div>
-    <script>
-        const button = document.getElementById("btn");
-        button.addEventListener("click", event => {
-            const addList = document.getElementsByClassName('add-list');
-            const jsInput = document.getElementById('js-input');
-            const addComment = document.getElementById('comment');
-            const addText = document.createElement('p');
-            const addButton = document.createElement('button');
-            addText.textContent = jsInput.value;
-            addComment.appendChild(addText);
-            const divComment = document.createElement("div");
-            addComment.appendChild(divComment);
 
-            const btnWork = document.createElement("button");
-            btnWork.textContent = "作業中";
-            const btnDelete = document.createElement("button");
-            btnDelete.textContent = "削除";
-            const divWork = document.createElement("div");
-            const divDelete = document.createElement("div");
-            divWork.appendChild(btnWork);
-            divDelete.appendChild(btnDelete);
-            const todo1 = document.getElementById("todo1");
-            todo1.appendChild(divWork);
-            const todo2 = document.getElementById("todo2");
-            todo2.appendChild(divDelete);
+    <script>
+        const button = document.getElementById('btn');
+        button.addEventListener("click", event => {
+            const addList = document.getElementById('add-list');
+            const jsInput = document.getElementById('js-input');
+            const tableRecord = document.createElement('tr');
+            addList.appendChild(tableRecord);
+
+            const tableId = document.createElement('td');
+            // tableId.textContent = 1;
+            tableRecord.appendChild(tableId);
+
+            const tableComment = document.createElement('td');
+            tableComment.textContent = jsInput.value;
+            tableRecord.appendChild(tableComment);
+
+            const btnWork = document.createElement('button');
+            btnWork.textContent = '作業中';
+            const btnDelete = document.createElement('button');
+            btnDelete.textContent = '削除';
+
+            tableRecord.appendChild(btnWork);
+            tableRecord.appendChild(btnDelete);
+            const list = [];
+            const todo = { id: list.length + 1 , comment: jsInput.value, status: '作業中' };
+            list.push(todo);
+            tableId.textContent = todo.id;
+            
         });
     </script>
 </body>
