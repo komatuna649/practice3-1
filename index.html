@@ -61,9 +61,7 @@
             </tr>
         </thead>
         <tbody id="add-list">
-            <tr>
-                <td></td>
-            </tr>
+
         </tbody>
     </table>
     <h2>新規タスクの追加</h2>
@@ -74,32 +72,34 @@
 
     <script>
         const button = document.getElementById('btn');
-        button.addEventListener("click", event => {
+        button.addEventListener('click', event => {
             const addList = document.getElementById('add-list');
-            const jsInput = document.getElementById('js-input');
             const tableRecord = document.createElement('tr');
             addList.appendChild(tableRecord);
-
             const tableId = document.createElement('td');
-            // tableId.textContent = 1;
             tableRecord.appendChild(tableId);
 
+            const jsInput = document.getElementById('js-input');
             const tableComment = document.createElement('td');
             tableComment.textContent = jsInput.value;
             tableRecord.appendChild(tableComment);
-
-            const btnWork = document.createElement('button');
-            btnWork.textContent = '作業中';
-            const btnDelete = document.createElement('button');
-            btnDelete.textContent = '削除';
-
-            tableRecord.appendChild(btnWork);
-            tableRecord.appendChild(btnDelete);
             const list = [];
-            const todo = { id: list.length + 1 , comment: jsInput.value, status: '作業中' };
-            list.push(todo);
+            const todo = { id: list.length + 1, comment: jsInput.value, status: '作業中' };
             tableId.textContent = todo.id;
-            
+            list.push(todo);
+
+            function btnWorkCleate() {
+                const btnWork = document.createElement('button');
+                btnWork.textContent = '作業中';
+                tableRecord.appendChild(btnWork);
+            }
+            btnWorkCleate();
+            function btnDeleteCleate() {
+                const btnDelete = document.createElement('button');
+                btnDelete.textContent = '削除';
+                tableRecord.appendChild(btnDelete);
+            }
+            btnDeleteCleate();
         });
     </script>
 </body>
