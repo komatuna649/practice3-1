@@ -27,11 +27,6 @@
 
         .add-list {
             list-style: none;
-            display: flex;
-        }
-
-        .add-list tr {
-            display: flex;
         }
     </style>
 </head>
@@ -55,9 +50,9 @@
     <table>
         <thead>
             <tr>
-                　　　<th>ID</th>
-                　　　<th>コメント</th>
-                　　　<th>状態</th>
+                <th>ID</th>
+                <th>コメント</th>
+                <th>状態</th>
             </tr>
         </thead>
         <tbody id="add-list">
@@ -71,35 +66,44 @@
     </div>
 
     <script>
-        const button = document.getElementById('btn');
-        button.addEventListener('click', event => {
-            const addList = document.getElementById('add-list');
-            const tableRecord = document.createElement('tr');
-            addList.appendChild(tableRecord);
-            const tableId = document.createElement('td');
-            tableRecord.appendChild(tableId);
+        document.addEventListener('DOMContentLoaded', function () {
+            const button = document.getElementById('btn');
+            const lists = [];
+            const btnWork = document.createElement('button');
+            button.addEventListener('click', function () {
+                const addList = document.getElementById('add-list');
+                const tableRecord = document.createElement('tr');
+                const tableId = document.createElement('td');
+                const jsInput = document.getElementById('js-input');
+                const tableComment = document.createElement('td');
+                const createButtonTd = document.createElement('td');
+                const id = "td-" + (lists.length + 1);
+                createButtonTd.id = id;
 
-            const jsInput = document.getElementById('js-input');
-            const tableComment = document.createElement('td');
-            tableComment.textContent = jsInput.value;
-            tableRecord.appendChild(tableComment);
-            const list = [];
-            const todo = { id: list.length + 1, comment: jsInput.value, status: '作業中' };
-            tableId.textContent = todo.id;
-            list.push(todo);
-
-            function btnWorkCleate() {
+                const todo = { id: lists.length + 1, comment: jsInput.value };
+                lists.push(todo);
+                tableId.textContent = todo.id;
+                tableComment.textContent = todo.comment;
+                jsInput.value = '';
+                tableRecord.appendChild(tableId);
+                tableRecord.appendChild(tableComment);
+                addList.appendChild(tableRecord);
+                tableRecord.appendChild(createButtonTd);
+                btnWorkCreate(id);
+                btnDeleteCreate(id);
+            });
+            function btnWorkCreate(id) {
                 const btnWork = document.createElement('button');
                 btnWork.textContent = '作業中';
-                tableRecord.appendChild(btnWork);
-            }
-            btnWorkCleate();
-            function btnDeleteCleate() {
+                const buttonTd = document.getElementById(id);
+                buttonTd.appendChild(btnWork);
+            };
+            function btnDeleteCreate(id) {
                 const btnDelete = document.createElement('button');
                 btnDelete.textContent = '削除';
-                tableRecord.appendChild(btnDelete);
-            }
-            btnDeleteCleate();
+                const buttonTd = document.getElementById(id);
+                buttonTd.appendChild(btnDelete);
+            };
         });
     </script>
 </body>
