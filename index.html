@@ -70,18 +70,39 @@
             const button = document.getElementById('btn');
             const lists = [];
             const btnWork = document.createElement('button');
+
             button.addEventListener('click', function () {
+                const jsInput = document.getElementById('js-input');
+                const todo = { id: lists.length + 1, comment: jsInput.value };
+                lists.push(todo);
+                console.log(lists)
+                clearList()
+                createList()
+            });
+
+            function clearList() {
+                const list = document.getElementById('add-list');
+                while (list.firstChild) {
+                    list.removeChild(list.firstChild);
+                }
+            }
+
+            function createList() {
+                lists.map((todo) => {
+                    // console.log(lists)
+                    createTodo(todo)
+                })
+            }
+            function createTodo(todo) {
+                console.log(todo)
                 const addList = document.getElementById('add-list');
                 const tableRecord = document.createElement('tr');
                 const tableId = document.createElement('td');
                 const jsInput = document.getElementById('js-input');
                 const tableComment = document.createElement('td');
                 const createButtonTd = document.createElement('td');
-                const id = "td-" + (lists.length + 1);
+                const id = "td-" + todo.id;
                 createButtonTd.id = id;
-
-                const todo = { id: lists.length + 1, comment: jsInput.value };
-                lists.push(todo);
                 tableId.textContent = todo.id;
                 tableComment.textContent = todo.comment;
                 jsInput.value = '';
@@ -90,19 +111,27 @@
                 addList.appendChild(tableRecord);
                 tableRecord.appendChild(createButtonTd);
                 btnWorkCreate(id);
-                btnDeleteCreate(id);
-            });
+                btnDeleteCreate(id, lists.length - 1);
+            }
+
             function btnWorkCreate(id) {
                 const btnWork = document.createElement('button');
                 btnWork.textContent = '作業中';
                 const buttonTd = document.getElementById(id);
                 buttonTd.appendChild(btnWork);
             };
-            function btnDeleteCreate(id) {
+
+            function btnDeleteCreate(id, index) {
                 const btnDelete = document.createElement('button');
                 btnDelete.textContent = '削除';
                 const buttonTd = document.getElementById(id);
+                btnDelete.dataset.id = index;
                 buttonTd.appendChild(btnDelete);
+                btnDelete.onclick = function () {
+                    lists.splice(this.dataset.id, 1);
+                    clearList()
+                    createList()
+                };
             };
         });
     </script>
