@@ -111,7 +111,7 @@
                 addList.appendChild(tableRecord);
                 tableRecord.appendChild(createButtonTd);
                 btnWorkCreate(id);
-                btnDeleteCreate(id, lists.length - 1);
+                btnDeleteCreate(id, todo.id);
             }
 
             function btnWorkCreate(id) {
@@ -125,12 +125,13 @@
                 const btnDelete = document.createElement('button');
                 btnDelete.textContent = '削除';
                 const buttonTd = document.getElementById(id);
-                btnDelete.dataset.id = index;
+                btnDelete.dataset.id = index ;
                 buttonTd.appendChild(btnDelete);
                 btnDelete.onclick = function () {
+                    console.log(this.dataset.id);
                     lists.splice(this.dataset.id, 1);
-                    clearList()
-                    createList()
+                    clearList();
+                    createList();
                 };
             };
         });
