@@ -39,10 +39,10 @@
         <label for="complete"><input id="complete" type="radio" name="radio" value="1">完了</label>
 
     </form>
-            
-       
-            
-            
+
+
+
+
     <table>
         <thead>
             <tr>
@@ -71,9 +71,9 @@
             const radioButtonAll = document.getElementById('all');
             const radioButtonWorking = document.getElementById('work');
             const radioButtonDone = document.getElementById('complete');
-            
+
             button.addEventListener('click', function () {
-                const todo = { id: lists.length + 1, comment: jsInput.value,status:'作業中' };
+                const todo = { id: lists.length + 1, comment: jsInput.value, status: '作業中' };
                 lists.push(todo);
                 // console.log(lists)
                 clearList()
@@ -85,14 +85,15 @@
                 while (list.firstChild) {
                     list.removeChild(list.firstChild);
                 }
+
             }
 
             function createList() {
                 lists.map((todo) => {
                     // console.log(lists)  
-                    
+
                     createTodo(todo)
-                
+
                 })
             }
 
@@ -149,6 +150,9 @@
                 buttonTd.appendChild(btnDelete);
                 btnDelete.onclick = function () {
                     lists.splice(this.dataset.id - 1, 1);
+                    lists.forEach((value, index) => {
+                        lists[index].id = index+1;
+                    });
                     clearList();
                     createList();
                 };
