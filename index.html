@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -67,7 +67,6 @@
             const lists = [];
             const btnWork = document.createElement('button');
             const jsInput = document.getElementById('js-input');
-            const collect = document.getElementById('collect');
             const radioButtonAll = document.getElementById('all');
             const radioButtonWorking = document.getElementById('work');
             const radioButtonDone = document.getElementById('complete');
@@ -79,7 +78,12 @@
                 lists.push(todo);
                 clearList();
                 createList();
-
+                if (radioButtonWorking.checked) {
+                    workChecked();
+                }
+                if (radioButtonDone.checked) {
+                    doneChecked();
+                }
             });
 
             function clearList() {
@@ -98,7 +102,7 @@
 
             function createListByStatus(status) {
                 lists.map((todo) => {
-                    if (todo.state == status) {
+                    if (todo.state === status) {
                         createTodo(todo, todo.state);
                     }
                 });
@@ -150,23 +154,24 @@
                 buttonTd.appendChild(btnWork);
                 buttonTd.addEventListener('click', function (e) {
                     lists.forEach((todo, i) => {
-                        if (e.target.textContent == stateWork) {
-                            if (lists[i].state == stateWork) {
-                                todo.state = stateDone;
+                        if (e.target.textContent === stateWork) {
+                            if (lists[i+1].state === stateWork) {
+                                lists[i+1].state = stateDone;
                                 e.target.textContent = stateDone;
                             }
-                        } else {
-                            if (e.target.textContent == stateDone) {
-                                if (lists[i].state == stateDone) {
-                                    todo.state = stateWork;
+                        } else { 
+                            if (e.target.textContent === stateDone) {
+                                if (lists[i+1].state === stateDone) {
+                                    lists[i+1].state = stateWork;
                                     e.target.textContent = stateWork;
-
                                 }
                             }
                         }
                     });
 
                     if (radioButtonAll.checked) {
+                        clearList();
+                        createList()
                         return;
                     }
                     if (radioButtonWorking.checked) {
@@ -198,5 +203,4 @@
         });
     </script>
 </body>
-
 </html>
